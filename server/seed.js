@@ -103,7 +103,7 @@ const SAMPLES = [
     study_name: 'Phase III Neurolex Efficacy Trial',
     study_type: 'Interventional Clinical Trial',
     center_id: 'DE-014',
-    center_name: 'Universitätsklinikum München',
+    center_name: 'Universitatsklinikum Munchen',
     workflow_state: 'Pending Submission',
     case_priority: '4 - Urgent',
     patient_initials: 'M.S.',
@@ -117,7 +117,7 @@ const SAMPLES = [
     reporters: [
       {
         title: 'Prof.', first_name: 'Hans', last_name: 'Keller',
-        reporter_type: 'Physician', institution: 'Universitätsklinikum München',
+        reporter_type: 'Physician', institution: 'Universitatsklinikum Munchen',
         city: 'Munich', country: 'Germany', is_primary: 1, is_hcp: 1,
       },
     ],
@@ -148,10 +148,18 @@ const SAMPLES = [
   },
 ];
 
-let count = 0;
-for (const sample of SAMPLES) {
-  const created = repo.createCase(sample);
-  count += 1;
-  console.log(`  Seeded ${created.case_number}`);
+async function seed() {
+  await repo.init();
+  let count = 0;
+  for (const sample of SAMPLES) {
+    const created = repo.createCase(sample);
+    count += 1;
+    console.log(`  Seeded ${created.case_number}`);
+  }
+  console.log(`\nDone. Inserted ${count} sample case(s).`);
 }
-console.log(`\nDone. Inserted ${count} sample case(s).`);
+
+seed().catch((err) => {
+  console.error('Seed failed:', err);
+  process.exit(1);
+});

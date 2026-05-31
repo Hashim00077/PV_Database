@@ -51,7 +51,7 @@ Open **http://localhost:3000** in your browser.
 | Layer | Technology | Why |
 |-------|-----------|-----|
 | Backend | Node.js + Express | Simple, single-process server |
-| Database | SQLite (via `better-sqlite3`) | Zero-config, single-file database |
+| Database | SQLite (via `sql.js`) | Zero-config, single-file DB, no native compilation needed |
 | Frontend | Vanilla HTML/CSS/JS (ES modules) | No build step, readable source, easy to teach |
 
 Everything runs on a single port with no external services. Just `npm install` and `npm start`.
