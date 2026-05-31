@@ -54,14 +54,16 @@ export function renderProductsTab(model) {
         ],
       }));
 
+    const notes = fieldGrid(textareaField(product, 'notes', { label: 'Product Notes', rows: 2 }));
+
     return h('div', { class: 'product-card' }, head,
-      h('div', { class: 'product-body' }, fields, dosageTitle, dosages));
+      h('div', { class: 'product-body' }, fields, dosageTitle, dosages, notes));
   }
 
   function renderList() {
     list.innerHTML = '';
     if (!model.products.length) {
-      list.appendChild(h('div', { class: 'repeat-empty', style: 'border:1px dashed var(--border); border-radius:3px;' },
+      list.appendChild(h('div', { class: 'repeat-empty', style: 'border:1px dashed var(--border-gray); border-radius:3px;' },
         'No products added. Use "Add Product" to record a suspect or concomitant drug.'));
     } else {
       model.products.forEach((p, i) => list.appendChild(productCard(p, i)));

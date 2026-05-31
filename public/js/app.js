@@ -153,7 +153,7 @@ function handleMenuItem(item) {
 function showAbout() {
   view.innerHTML = '';
   view.appendChild(h('div', { class: 'panel', style: 'padding:22px; max-width:640px; margin:24px auto;' },
-    h('h2', { style: 'color:var(--argus-blue); margin-top:0;' }, 'Argus Safety \u2014 Teaching Edition'),
+    h('h2', { style: 'color:var(--navy); margin-top:0;' }, 'Argus Safety \u2014 Teaching Edition'),
     h('p', {}, 'A self-hosted, open clone of the Oracle Argus Safety Case Form, built for learning and teaching pharmacovigilance case data entry.'),
     h('p', {}, 'The eight Case Form tabs (General, Patient, Products, Events, Analysis, Activities, Additional Info and Regulatory Reports) are fully functional and persist data to a local SQLite database. The remaining menus mirror the real product layout but are non-functional demonstrations.'),
     h('p', { class: 'muted' }, 'This project is not affiliated with or endorsed by Oracle. For educational use only.'),

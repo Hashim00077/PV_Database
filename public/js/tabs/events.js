@@ -42,10 +42,8 @@ export function renderEventsTab(model) {
     const meddraTitle = h('div', { class: 'subsection-title' }, 'MedDRA Coding Hierarchy');
     const meddra = fieldGrid(
       inputField(ev, 'llt_term', { label: 'LLT' }),
-      inputField(ev, 'pt_term', { label: 'PT', readonly: true }),
       inputField(ev, 'hlt_term', { label: 'HLT' }),
-      inputField(ev, 'hlgt_term', { label: 'HLGT' }),
-      inputField(ev, 'soc', { label: 'SOC', readonly: true })
+      inputField(ev, 'hlgt_term', { label: 'HLGT' })
     );
 
     return h('div', { class: 'product-card' }, head,
@@ -55,7 +53,7 @@ export function renderEventsTab(model) {
   function renderList() {
     list.innerHTML = '';
     if (!model.events.length) {
-      list.appendChild(h('div', { class: 'repeat-empty', style: 'border:1px dashed var(--border); border-radius:3px;' },
+      list.appendChild(h('div', { class: 'repeat-empty', style: 'border:1px dashed var(--border-gray); border-radius:3px;' },
         'No events added. Use "Add Event" to record an adverse event.'));
     } else {
       model.events.forEach((ev, i) => list.appendChild(eventCard(ev, i)));
