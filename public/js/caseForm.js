@@ -29,13 +29,17 @@ function emptyCase() {
     id: null,
     case_number: '',
     // General
-    initial_receipt_date: '', central_receipt_date: '', report_type: '',
+    follow_up_number: '', initial_receipt_date: '', central_receipt_date: '',
+    safety_date: '', report_type: '',
     case_classification: '', country_of_incidence: '', awareness_date: '',
     study_id: '', study_name: '', study_type: '', center_id: '', center_name: '',
+    protocol_number: '',
     literature_reference: '', literature_title: '', literature_author: '',
-    literature_journal: '', general_comment: '',
+    literature_journal: '', literature_vol: '', literature_year: '',
+    literature_pages: '', general_comment: '',
     // Patient
     patient_initials: '', patient_id: '', patient_dob: '', patient_age: '',
+    patient_last_name: '', patient_first_name: '', patient_mi: '',
     patient_age_unit: '', patient_age_group: '', patient_gender: '',
     patient_weight: '', patient_weight_unit: '', patient_height: '',
     patient_height_unit: '', patient_race: '', patient_ethnicity: '',
@@ -46,11 +50,16 @@ function emptyCase() {
     narrative: '', company_comment: '', medical_assessment: '',
     causality_assessment: '', medwatch_seriousness: '', bfarm_report_type: '',
     analysis_notes: '',
+    listedness: '', expectedness: '', seriousness_assessment: '',
+    listedness_assessment: '',
     // Activities (singleton)
     workflow_state: '', assigned_user: '', assigned_group: '',
     case_priority: '', date_locked: '', date_closed: '',
     // Additional Info
     case_keywords: '',
+    lock_user: '', close_user: '', reason_for_close: '',
+    // Regulatory
+    regulatory_notes: '',
     // Child collections
     reporters: [], medical_history: [], lab_data: [], products: [],
     events: [], action_items: [], contact_log: [], case_notes: [],

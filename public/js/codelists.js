@@ -135,3 +135,13 @@ export const MEDWATCH_SERIOUSNESS = [
 export const BFARM_REPORT_TYPES = [
   '', 'Initial', 'Follow-up', 'Nullification',
 ];
+
+export const REPORT_MEDIA = [
+  '', 'Telephone', 'Email', 'Fax', 'Letter', 'Publication', 'Internet', 'Consumer', 'Other',
+];
+
+export const LISTEDNESS = ['', 'Listed', 'Unlisted', 'Not Assessable'];
+
+export const EXPECTEDNESS = ['', 'Expected', 'Unexpected', 'Not Assessable'];
+
+export const SERIOUSNESS_ASSESSMENTS = ['', 'Serious', 'Non-Serious', 'Not Assessable'];

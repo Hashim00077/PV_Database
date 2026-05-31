@@ -1,4 +1,4 @@
-// Tab 5: Analysis — narrative, company comment, medical & regulatory assessment.
+// Tab 5: Analysis -- narrative, company comment, case assessment, medical assessment, regulatory.
 
 import { h, section, fieldGrid, selectField, textareaField } from '../components.js';
 import * as CL from '../codelists.js';
@@ -11,23 +11,28 @@ export function renderAnalysisTab(model) {
       hint: 'A clear, chronological account of the case: patient, suspect product(s), event(s), treatment and outcome.',
     })));
 
-  const companyComment = section('Company Comment',
-    fieldGrid(textareaField(model, 'company_comment', { label: 'Sender / Company Comment', rows: 5 })));
+  const companyComment = section('Case Comment / Company Comment',
+    fieldGrid(textareaField(model, 'company_comment', { label: 'Company Comment', rows: 5 })));
+
+  const caseAssessment = section('Case Assessment',
+    fieldGrid(
+      selectField(model, 'listedness', { label: 'Listedness', options: CL.LISTEDNESS }),
+      selectField(model, 'expectedness', { label: 'Expectedness', options: CL.EXPECTEDNESS }),
+      selectField(model, 'causality_assessment', { label: 'Causality', options: CL.CAUSALITIES })
+    ));
 
   const medical = section('Medical Assessment',
     fieldGrid(
-      textareaField(model, 'medical_assessment', { label: 'Medical Reviewer Assessment', rows: 5 }),
-      selectField(model, 'causality_assessment', { label: 'Company Causality Assessment', options: CL.CAUSALITIES, span: 'full' })
+      textareaField(model, 'medical_assessment', { label: 'Medical Assessment', rows: 4 }),
+      selectField(model, 'seriousness_assessment', { label: 'Seriousness Assessment', options: CL.SERIOUSNESS_ASSESSMENTS }),
+      selectField(model, 'listedness_assessment', { label: 'Listedness Assessment', options: CL.LISTEDNESS })
     ));
 
-  const regulatory = section('Regulatory Assessment',
+  const regulatory = section('Regulatory Information',
     fieldGrid(
-      selectField(model, 'medwatch_seriousness', { label: 'MedWatch (FDA) Seriousness', options: CL.MEDWATCH_SERIOUSNESS }),
+      selectField(model, 'medwatch_seriousness', { label: 'MedWatch Seriousness', options: CL.MEDWATCH_SERIOUSNESS }),
       selectField(model, 'bfarm_report_type', { label: 'BfArM Report Type', options: CL.BFARM_REPORT_TYPES })
     ));
 
-  const notes = section('Analysis Notes',
-    fieldGrid(textareaField(model, 'analysis_notes', { label: 'Notes', rows: 3 })));
-
-  return h('div', {}, narrative, companyComment, medical, regulatory, notes);
+  return h('div', {}, narrative, companyComment, caseAssessment, medical, regulatory);
 }
