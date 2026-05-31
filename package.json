@@ -1,0 +1,25 @@
+{
+  "name": "argus-safety-clone",
+  "version": "1.0.0",
+  "description": "A self-hosted, web-based clone of the Oracle Argus Safety Case Form for learning and teaching pharmacovigilance concepts.",
+  "main": "server/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "seed": "node server/seed.js"
+  },
+  "keywords": [
+    "pharmacovigilance",
+    "argus",
+    "safety",
+    "drug-safety",
+    "case-management",
+    "teaching"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "express": "^4.21.2"
+  }
+}
