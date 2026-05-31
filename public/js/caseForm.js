@@ -92,19 +92,40 @@ export async function renderCaseForm(id, opts) {
 
   // ---- Toolbar -------------------------------------------------------
   const caseNoEl = h('span', { class: 'case-no' }, model.case_number || 'New Case (unsaved)');
+  const statusEl = h('span', { class: 'case-status-badge' }, model.workflow_state || (isNew ? 'New' : 'Open'));
+  function refreshStatus() {
+    statusEl.textContent = model.workflow_state || (isNew ? 'New' : 'Open');
+  }
+
   const metaEl = h('span', { class: 'case-meta' });
   function refreshMeta() {
     metaEl.textContent = isNew
       ? 'Not yet saved \u2014 a case number will be assigned on save'
-      : `Case ID ${model.id}  \u2022  ${model.events.length} event(s)  \u2022  ${model.products.length} product(s)  \u2022  ${model.workflow_state || 'No workflow state'}`;
+      : `Case ID ${model.id}  \u2022  ${model.events.length} event(s)  \u2022  ${model.products.length} product(s)`;
   }
   refreshMeta();
 
-  const saveBtn = h('button', { class: 'btn', onclick: () => save(false) }, 'Save');
-  const saveCloseBtn = h('button', { class: 'btn', onclick: () => save(true) }, 'Save & Close');
-  const cancelBtn = h('button', { class: 'btn btn-secondary', onclick: opts.goWorklist }, 'Cancel');
+  const saveBtn = h('button', { class: 'btn toolbar-btn', onclick: () => save(false), title: 'Save' }, 'Save');
+  const saveCloseBtn = h('button', { class: 'btn toolbar-btn', onclick: () => save(true), title: 'Save & Close' }, 'Save & Close');
+  const closeBtn = h('button', { class: 'btn btn-secondary toolbar-btn', onclick: opts.goWorklist, title: 'Close' }, 'Close');
+
+  function dummyAction(label) {
+    return h('button', {
+      class: 'btn toolbar-btn',
+      title: label,
+      onclick: () => toast(`"${label}" is a demonstration placeholder in this teaching edition.`, 'info'),
+    }, label);
+  }
+
+  const acceptBtn = dummyAction('Accept');
+  const routeBtn = dummyAction('Route');
+  const medReviewBtn = dummyAction('Medical Review');
+  const lockBtn = dummyAction('Lock');
+  const unlockBtn = dummyAction('Unlock');
+
   const deleteBtn = h('button', {
-    class: 'btn btn-danger',
+    class: 'btn btn-danger toolbar-btn',
+    title: 'Delete',
     onclick: async () => {
       if (isNew) return;
       if (!confirm(`Delete case ${model.case_number}? This cannot be undone.`)) return;
@@ -116,12 +137,21 @@ export async function renderCaseForm(id, opts) {
     },
   }, 'Delete');
 
-  const toolbarActions = h('div', { class: 'case-toolbar-actions' }, saveBtn, saveCloseBtn, cancelBtn);
-  if (!isNew) toolbarActions.appendChild(deleteBtn);
+  const toolbarLeft = h('div', { class: 'case-id-block' },
+    caseNoEl,
+    statusEl,
+    metaEl);
 
-  const toolbar = h('div', { class: 'case-toolbar' },
-    h('div', { class: 'case-id-block' }, caseNoEl, metaEl),
-    toolbarActions);
+  const toolbarActions = h('div', { class: 'case-toolbar-actions' },
+    saveBtn, saveCloseBtn, closeBtn,
+    h('span', { class: 'toolbar-separator' }),
+    acceptBtn, routeBtn, medReviewBtn, lockBtn, unlockBtn);
+  if (!isNew) {
+    toolbarActions.appendChild(h('span', { class: 'toolbar-separator' }));
+    toolbarActions.appendChild(deleteBtn);
+  }
+
+  const toolbar = h('div', { class: 'case-toolbar' }, toolbarLeft, toolbarActions);
 
   // ---- Tab strip -----------------------------------------------------
   const tabBody = h('div', { class: 'tab-body' });
@@ -143,6 +173,7 @@ export async function renderCaseForm(id, opts) {
     tabBody.innerHTML = '';
     tabBody.appendChild(tab.render(model));
     refreshMeta();
+    refreshStatus();
   }
 
   // ---- Save ----------------------------------------------------------
